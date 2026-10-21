@@ -111,27 +111,13 @@ PRANK flags are passed unchanged to every alignment. As with PRANK itself, optio
 
 ### `-j` controls alignments, with exclusive CPU slots on Linux
 
-For example, `-j 8` means **up to eight independent PRANK alignments** running at the same time. The wrapper uses Python threads to supervise these processes; it does not parallelize an individual PRANK alignment.
-
-**Why the number of processes in `htop` may be larger than `-j`:** PRANK can launch external helpers such as MAFFT, Exonerate, and BppAncestor. Its subprocesses are *not* additional alignments started by this wrapper. On Linux, the wrapper now assigns **one distinct logical CPU to each active alignment**, using `taskset -c CPU prank ...`. That CPU affinity is inherited by PRANK's child processes; the wrapper returns the CPU slot to the pool only after PRANK exits. It also sets `OMP_NUM_THREADS=1` and common numerical-library thread limits to 1 for each PRANK subprocess tree.
-
-On Linux, the script reads the CPUs available to the process from `os.sched_getaffinity(0)` (respecting affinity/cgroup restrictions). **If `-j` exceeds the number of available logical CPUs, it aborts instead of silently oversubscribing CPUs.** If `taskset` is absent, it reports the missing dependency. Use `--no-pin` to opt out and restore the previous unpinned scheduling, including when you need to use more jobs than accessible CPUs. On macOS and other non-Linux platforms, scheduling runs without affinity.
-
-CPU pinning prevents **different alignments from this wrapper invocation** from receiving the same logical CPU while they overlap; it does not prevent unrelated applications or independently launched wrappers from using those CPUs. Also, with SMT/Hyper-Threading, two *different logical CPUs* may still share one *physical core*. If your priority is avoiding physical-core contention, choose a lower `-j` that fits your physical-core resources.
-
-You can see eligible logical CPUs on Linux using:
-
-```bash
-python3 -c 'import os; print(sorted(os.sched_getaffinity(0)))'
-```
-
-For example:
+For example, `-j 24` means **up to twenty four independent PRANK alignments** running at the same time. The wrapper uses Python threads to supervise these processes; it does not parallelize an individual PRANK alignment.
 
 ```bash
 parallel_prank -i cpDNA_genes -o aligned_cpDNA_prank -j 24 --default
 ```
 
-With 24 eligible logical CPUs, up to 24 PRANK alignments run concurrently, with one CPU slot reserved per alignment. Other PRANK and wrapper options work unchanged.
+With 24 eligible logical CPUs, up to 24 PRANK alignments run concurrently, with one CPU slot reserved per alignment.
 
 ## Automatic codon-length validation
 
@@ -234,4 +220,4 @@ This combines help from the wrapper and `prank -help`; the PRANK input/output co
 
 If you publish alignments generated with the wrapper, please cite **PRANK** and its relevant methodological publication. Parallel PRANK is a convenience wrapper that schedules independent PRANK alignments; it does not change PRANK's alignment algorithm.
 
-PRANK documentation: https://ariloytynoja.github.io/prank-msa/
+PRANK github: https://github.com/ariloytynoja/prank-msa
