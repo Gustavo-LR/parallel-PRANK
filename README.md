@@ -123,9 +123,9 @@ With 24 eligible logical CPUs, up to 24 PRANK alignments run concurrently, with 
 
 When the PRANK `-codon` flag is explicitly provided **or** `--default` is used (which adds `-codon -F`), Parallel PRANK checks **each sequence within each FASTA file** before starting that alignment:
 
-1. Calculate each sequence's **ungapped nucleotide length**, ignoring `-` characters and whitespace, as in `cds_3mult_cleaner.py`.
+1. Calculate each sequence's **ungapped nucleotide length**, ignoring `-` characters and whitespace.
 2. Keep sequences when `length % 3 == 0` and exclude others from the corresponding alignment.
-3. When exclusions are necessary, write only the retained records to a **temporary FASTA** and use that file for PRANK. Temporary files are deleted after the job; original input FASTAs remain unchanged.
+3. When exclusions are necessary, a **temporary FASTA** will be built containing the filtered sequences and use that file for PRANK. Temporary files are deleted after the job; original input FASTAs remain unchanged.
 4. Write the validation summary and all excluded sequence IDs, lengths, and remainders to the **top of the per-alignment `.prank.log`**. PRANK's own output follows this section.
 
 For example, when running:
