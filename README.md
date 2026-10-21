@@ -207,13 +207,8 @@ This combines help from the wrapper and `prank -help`; the PRANK input/output co
 
 ## Errors and notes
 
-- The script refuses empty folder names, mismatched input/output counts, missing input folders, unavailable PRANK, and `-j` values below 1.
-- On Linux, it also rejects `-j` greater than the number of CPUs available under process affinity (unless `--no-pin` is set), and requires `taskset` for pinning.
-- If there are no supported FASTA files, no alignment is started.
-- Individual PRANK failures do not stop other jobs. Failed jobs are reported with their log file paths.
-- In codon mode, every excluded record is reported before PRANK output, and the console prints a total number of excluded sequences across all jobs.
-- If a codon-mode FASTA has fewer than two sequences remaining, that job is skipped and counted as failed; other jobs still run. Malformed FASTA files are reported in their logs.
-- Exit status is **0** when all alignments succeed; it is nonzero for validation errors, missing inputs, no FASTA files, or alignment failures.
+- On Linux, the script rejects `-j` greater than the number of CPUs available under process affinity (unless `--no-pin` is set), and requires `taskset` for pinning.
+- Sometimes, an error with terminate -11 happens, yet the alignment is complete. Be sure to use the most recent PRANK build.
 - For `--default` / `-codon`, supply coding DNA sequences appropriate for codon-aware alignment; the new length validation cannot detect internal frameshifts or incorrect CDS boundaries.
 
 ## Citation
