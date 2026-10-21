@@ -36,7 +36,7 @@ python3 parallel_prank.py -h
 Download or clone this repository, then run the script with Python:
 
 ```bash
-python3 parallel_prank.py -i genes -o aligned_genes -j 8
+python3 parallel_prank.py -i genes -o aligned_genes -j 8 --default
 ```
 
 To call it as `parallel_prank` from anywhere on Linux, make it executable and add a symlink from a folder on your `PATH` (for example, `~/.local/bin`):
