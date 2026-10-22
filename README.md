@@ -18,7 +18,7 @@
 ## Requirements
 
 - Python **3.8+** (standard library only).
-- PRANK installed, with its executable named `prank` and accessible in your `PATH`.
+- PRANK v251117 installed, with its executable named `prank` and accessible in your `PATH`.
 - On Linux (default affinity mode), `taskset` from `util-linux` must be available in `PATH`. Other platforms run without pinning.
 - FASTA files with sequences to align, typically one file per gene.
 
