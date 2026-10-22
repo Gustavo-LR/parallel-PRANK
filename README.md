@@ -1,6 +1,6 @@
 # Parallel PRANK
 
-**Parallel PRANK** is a lightweight Python wrapper for running independent [PRANK](https://ariloytynoja.github.io/prank-msa/) multiple-sequence alignments concurrently. Rather than supplying one FASTA file per time as the original PRANK, you supply **one or more folders containing FASTA files**. Each file is processed by a separate PRANK process, and `-j` limits how many alignments run concurrently. When running with `--default` or `-codon`, the Parallel PRANK filters out sequences which are not multiple of three.
+**Parallel PRANK** is a lightweight Python wrapper for running independent [PRANK](https://github.com/ariloytynoja/prank-msa) multiple-sequence alignments concurrently. Rather than supplying one FASTA file per time as the original PRANK, you supply **one or more folders containing FASTA files**. Each file is processed by a separate PRANK process, and `-j` limits how many alignments run concurrently. When running with `--default` or `-codon`, the Parallel PRANK filters out sequences which are not multiple of three.
 
 ## Features
 
